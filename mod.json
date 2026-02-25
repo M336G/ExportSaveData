@@ -1,0 +1,34 @@
+{
+	"geode": "5.0.1",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "m336.export-save-data",
+	"name": "Export Save Data",
+	"version": "v1.0.0",
+	"developer": "M336",
+	"description": "Export your save data easily!",
+	"tags": [
+		"interface",
+		"utility",
+		"offline"
+	],
+	"links": {
+		"source": "https://github.com/M336G/ExportSaveData"
+	},
+	"issues": {
+		"info": "Having a problem with the mod? Report the issue on the GitHub repository",
+		"url": "https://github.com/M336G/ExportSaveData/issues"
+	},
+	"settings": {
+		"disable-warning": {
+			"name": "Disable warning",
+			"description": "Disables the warning about the save files containing sensitive information",
+			"type": "bool",
+			"default": false
+		}
+	}
+}
