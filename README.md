@@ -1,6 +1,5 @@
 # Export Save Data
-Adds an <cb>export button</c> to the <cb>Account page</c>, allowing you to export your
-<cb>CCGameManager.dat</c> & <cb>CCLocalLevels.dat</c> save files easily!
+Adds an <cb>export button</c> to the <cb>Account page</c>, allowing you to export your <cb>CCGameManager.dat</c> & <cb>CCLocalLevels.dat</c> save files easily!
 
 ## Want to help?
 Feel free to open a [Pull Request](https://github.com/M336G/ExportSaveData/pulls) on GitHub!
