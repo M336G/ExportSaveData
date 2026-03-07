@@ -1,3 +1,6 @@
+# v1.2.0
+- Added a popup to select which file(s) to export
+
 # v1.1.0
 - Exporting data now also refreshes CCGameManager.dat & CCLocalLevels.dat to export the most recent data
 - Added an option to open the chosen folder after an export
