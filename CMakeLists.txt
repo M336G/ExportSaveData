@@ -8,6 +8,8 @@ else()
 endif()
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
+set(GEODE_PACKAGE_ZSTD ON)
+
 project(ExportSaveData VERSION 1.2.0)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
