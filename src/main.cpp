@@ -1,5 +1,5 @@
 #include <Geode/modify/AccountLayer.hpp>
-#include "ModManager.h"
+#include "ModManager.hpp"
 
 using namespace geode::prelude;
 
@@ -12,9 +12,9 @@ class $modify(MyAccountLayer, AccountLayer) {
 
     class ExportPopup : public Popup {
     protected:
-        MyAccountLayer* m_layer;
+        MyAccountLayer *m_layer;
 
-        bool init(MyAccountLayer* layer) {
+        bool init(MyAccountLayer *layer) {
             if (!Popup::init(360.f, 200.f))
                 return false;
 
@@ -22,25 +22,25 @@ class $modify(MyAccountLayer, AccountLayer) {
 
             setTitle("Export Data");
 
-            auto* label = CCLabelBMFont::create("What do you want to export?", "bigFont.fnt");
+            auto *label = geode::Label::create("What do you want to export?", "bigFont.fnt");
             label->setScale(0.45f);
             m_mainLayer->addChildAtPosition(label, Anchor::Center, { 0, 45 });
 
-            auto* accountButton = CCMenuItemSpriteExtra::create(
+            auto *accountButton = CCMenuItemSpriteExtra::create(
                 ButtonSprite::create("Account"),
                 this,
                 menu_selector(ExportPopup::onAccount)
             );
             m_buttonMenu->addChildAtPosition(accountButton, Anchor::Center, { -60, 0 });
 
-            auto* levelsButton = CCMenuItemSpriteExtra::create(
+            auto *levelsButton = CCMenuItemSpriteExtra::create(
                 ButtonSprite::create("Levels"),
                 this,
                 menu_selector(ExportPopup::onLevels)
             );
             m_buttonMenu->addChildAtPosition(levelsButton, Anchor::Center, { 60, 0 });
 
-            auto* bothButton = CCMenuItemSpriteExtra::create(
+            auto *bothButton = CCMenuItemSpriteExtra::create(
                 ButtonSprite::create("Both"),
                 this,
                 menu_selector(ExportPopup::onBoth)
@@ -50,23 +50,23 @@ class $modify(MyAccountLayer, AccountLayer) {
             return true;
         };
 
-        void onAccount(CCObject* sender) {
+        void onAccount(CCObject *sender) {
             this->onClose(sender);
             m_layer->doExport(ExportMode::Account);
         };
 
-        void onLevels(CCObject* sender) {
+        void onLevels(CCObject *sender) {
             this->onClose(sender);
             m_layer->doExport(ExportMode::Levels);
         };
 
-        void onBoth(CCObject* sender) {
+        void onBoth(CCObject *sender) {
             this->onClose(sender);
             m_layer->doExport(ExportMode::Both);
         };
 
     public:
-        static ExportPopup* create(MyAccountLayer* layer) {
+        static ExportPopup *create(MyAccountLayer *layer) {
             auto ret = new ExportPopup();
             if (ret->init(layer)) {
                 ret->autorelease();
@@ -89,10 +89,10 @@ class $modify(MyAccountLayer, AccountLayer) {
         if (!m_isLoggedIn)
             return;
 
-        auto* menu = CCMenu::create();
+        auto *menu = CCMenu::create();
         menu->setID("export-menu"_spr);
 
-        auto* button = CCMenuItemSpriteExtra::create(
+        auto *button = CCMenuItemSpriteExtra::create(
             CCSprite::createWithSpriteFrameName("GJ_duplicateBtn_001.png"),
             this,
             menu_selector(MyAccountLayer::onExport));
@@ -105,14 +105,14 @@ class $modify(MyAccountLayer, AccountLayer) {
         m_mainLayer->addChildAtPosition(menu, Anchor::BottomRight, { -100, 20 }, false);
     };
 
-    void onExport(CCObject*) {
+    void onExport(CCObject *) {
         ExportPopup::create(this)->show();
     };
 
     void doExport(ExportMode mode) {
         async::spawn(
             utils::file::pick(utils::file::PickMode::OpenFolder, {}),
-            [self = Ref<MyAccountLayer>(this), mode](arc::Result<std::optional<std::filesystem::path>> result) {
+            [self = Ref<MyAccountLayer>(this), mode](utils::file::PickResult result) {
                 // Handle if the result is not Ok for some reason
                 if (!result.isOk()) {
                     log::error("Unknown error: {}", result.unwrapErr());
@@ -128,8 +128,8 @@ class $modify(MyAccountLayer, AccountLayer) {
 
                 auto doSaveAndExport = [self, exportDirectory, mode]() {
                     if (!self->m_fields->m_alreadySaved) {
-                        ModManager::GameManager->save();
-                        ModManager::LocalLevelManager->save();
+                        GameManager::sharedState()->save(false);
+                        LocalLevelManager::sharedState()->save(false);
                         self->m_fields->m_alreadySaved = true;
                     }
 

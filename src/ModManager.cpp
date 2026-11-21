@@ -1,15 +1,12 @@
-#include "ModManager.h"
+#include "ModManager.hpp"
 
 using namespace geode::prelude;
 
-GameManager* ModManager::GameManager = GameManager::sharedState();
-LocalLevelManager* ModManager::LocalLevelManager = LocalLevelManager::sharedState();
-
 // Smallest optimization ever to not keep saveDirectory into memory after that runs
-std::unordered_map<std::string, std::filesystem::path> ModManager::SaveFiles = []() {
+std::unordered_map<std::string, asp::fs::Path> ModManager::SaveFiles = []() {
     auto saveDirectory = dirs::getSaveDir();
 
-    return std::unordered_map<std::string, std::filesystem::path>{
+    return std::unordered_map<std::string, asp::fs::Path>{
         { "CCGameManager.dat", saveDirectory / "CCGameManager.dat" },
         { "CCLocalLevels.dat", saveDirectory / "CCLocalLevels.dat" }
     };

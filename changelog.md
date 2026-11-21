@@ -1,3 +1,6 @@
+# v1.2.1
+- Ported the mod to 2.2091
+
 # v1.2.0
 - Added a popup to select which file(s) to export
 
